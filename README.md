@@ -46,3 +46,37 @@ ansible-playbook -i inventory.ini playbook.yml
 ```
 cp /vagrant/.vagrant/machines/docker/virtualbox/private_key /home/vagrant/docker_key
 ```
+
+---
+
+Agora, com tudo provisionado, pode-se acessar o site pelo desktop fora das VMs. Neste caso, eu optei por utilizar o Nginx, configurei para clonar o repositorio de um site simples que foi realizado na materia de Frontend e coloquei esse modelo para todos os 10 containers com o Nginx. Foi utilizado um sistema de loop dentro do playbook do ansible para gerar os 10 containers.
+
+
+---
+
+Para a parte de comandos de gerenciamento, foi utilizados alguns shell scripts, o shell script realiza os comandos de iteração com o docker e armazena as informações passando para o arquivo yml que vai chamar ele. Aqui os comandos para executar:
+
+### Listar Containers Docker
+```
+ansible-playbook -i inventory.ini list_containers.yml
+```
+### Mostrar Estatisticas dos Containers
+```
+ansible-playbook -i inventory.ini docker_stats.yml
+```
+### Mostrar Logs de um Container necessita passar parametro do nome do container)
+```
+ansible-playbook -i inventory.ini docker_log.yml --extra-vars "container_name=nginx-1"
+```
+### Pausar um container (necessita passar parametro do nome do container)
+```
+ansible-playbook -i inventory.ini pause_container.yml --extra-vars "container_name=nginx-1"
+```
+### Parar 3 containers necessita passar parametro do nome de cada um dos containers)
+```
+ansible-playbook -i inventory.ini stop_containers.yml --extra-vars "container1=nginx-1 container2=nginx-2 container3=nginx-3"
+```
+### Remover todos os containers
+```
+ansible-playbook -i inventory.ini remove_all_containers.yml"
+```
