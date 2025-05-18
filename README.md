@@ -38,6 +38,10 @@ cd /vagrant/ansible
 ```
 
 Agora, deve-se rodar o comando para realizar o provisionamento do ansible, gerando a configuração do docker e a geração dos containers.
+```
+ansible-playbook -i inventory.ini playbook.yml
+```
+
 *nesta parte tive alguns problemas quanto a chave privada do docker para realizar a conexão entre as VMs que está sendo referenciada no inventory.ini do ansible, portanto, caso ocorra algum problema relacionado a isso, deve-se copiar a chave do docker para o ansible:
 ```
 cp /vagrant/.vagrant/machines/docker/virtualbox/private_key /home/vagrant/docker_key
