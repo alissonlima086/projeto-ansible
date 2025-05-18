@@ -1,0 +1,21 @@
+---
+- name: Pausar container Docker (necessita parametro)
+  hosts: docker
+  become: yes
+
+  vars:
+    container_name: ""
+
+  tasks:
+    - name: Dar permissão
+      file:
+        path: /vagrant/ansible/scripts/pause_container.sh
+        mode: '0755'
+
+    - name: Pausar container
+      shell: /vagrant/ansible/scripts/pause_container.sh {{ container_name }}
+      register: pause_output
+
+    - name: Mostrar saída
+      debug:
+        var: pause_output.stdout_lines

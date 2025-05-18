@@ -1,0 +1,18 @@
+---
+- name: Mostrar estatísticas dos containers Docker
+  hosts: docker
+  become: yes
+
+  tasks:
+    - name: Dar permissão
+      file:
+        path: /vagrant/ansible/scripts/docker_stats.sh
+        mode: '0755'
+
+    - name: Executar script docker_stats.sh
+      shell: /vagrant/ansible/scripts/docker_stats.sh
+      register: docker_stats_output
+
+    - name: Exibir estatísticas
+      debug:
+        var: docker_stats_output.stdout_lines

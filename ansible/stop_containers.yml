@@ -1,0 +1,25 @@
+---
+- name: Parar 3 containers Docker (necessita 3 parametros)
+  hosts: docker
+  become: yes
+
+  vars:
+    container_1: ""
+    container_2: ""
+    container_3: ""
+
+  tasks:
+    - name: Dar permissão
+      file:
+        path: /vagrant/ansible/scripts/stop_containers.sh
+        mode: '0755'
+
+    - name: Parar os 3 containers
+      shell: >
+        /vagrant/ansible/scripts/stop_containers.sh
+        {{ container_1 }} {{ container_2 }} {{ container_3 }}
+      register: stop_output
+
+    - name: Mostrar resultado
+      debug:
+        var: stop_output.stdout_lines

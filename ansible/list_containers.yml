@@ -1,0 +1,18 @@
+---
+- name: Listar todos os containers Docker
+  hosts: docker
+  become: yes
+
+  tasks:
+    - name: Garantir permissão de execução no script
+      file:
+        path: /vagrant/ansible/scripts/list_containers.sh
+        mode: '0755'
+
+    - name: Listar containers
+      shell: /vagrant/ansible/scripts/list_containers.sh
+      register: containers_list
+
+    - name: Mostrar containers
+      debug:
+        var: containers_list.stdout_lines

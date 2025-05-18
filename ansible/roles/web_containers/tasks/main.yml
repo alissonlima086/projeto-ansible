@@ -1,0 +1,23 @@
+---
+- name: Clonar repositório do GitHub
+  git:
+    repo: 'https://github.com/alissonlima086/site-yakuza'
+    dest: "/tmp/website"
+    clone: yes
+    update: yes
+
+- name: Criar containers com Nginx
+  docker_container:
+    name: "nginx-{{ item }}"
+    image: nginx:latest
+    state: started
+    ports:
+      - "808{{ item }}:80"
+    volumes:
+      - "/tmp/website:/usr/share/nginx/html"
+  loop: "{{ range(0, 9) | list }}" 
+  register: containers
+
+- name: Mostrar containers criados
+  debug:
+    var: containers

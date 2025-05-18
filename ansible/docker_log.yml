@@ -1,0 +1,18 @@
+---
+- name: Mostrar logs do container Docker (parâmetro obrigatório)
+  hosts: docker
+  become: yes
+
+  tasks:
+    - name: Dar permissão
+      file:
+        path: /vagrant/ansible/scripts/docker_logs.sh
+        mode: '0755'
+
+    - name: Mostrar logs do container
+      shell: /vagrant/ansible/scripts/docker_logs.sh {{ container_name }}
+      register: container_logs
+
+    - name: Exibir logs
+      debug:
+        var: container_logs.stdout_lines
