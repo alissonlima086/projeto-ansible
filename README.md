@@ -23,3 +23,22 @@ vagrant up
 ```
 
 Este comando irá rodar as duas maquinas virtuais, já instalando o ansible em uma e deixando a outra pronta para utilizar o Docker.
+
+
+Agora, deve-se acessar a maquina virtual do Ansible pelo ssh:
+
+```
+vagrant ssh ansible
+```
+
+Agora, com acesso a maquina através do ssh, devemos acessar a pasta em que se encontram os playbooks. Eles já estão criados, configurados na pasta do vagrant, a pasta com os arquivos está sincronizada para ser exibida no ansible, basta rodar.
+
+```
+cd /vagrant/ansible
+```
+
+Agora, deve-se rodar o comando para realizar o provisionamento do ansible, gerando a configuração do docker e a geração dos containers.
+*nesta parte tive alguns problemas quanto a chave privada do docker para realizar a conexão entre as VMs que está sendo referenciada no inventory.ini do ansible, portanto, caso ocorra algum problema relacionado a isso, deve-se copiar a chave do docker para o ansible:
+```
+cp /vagrant/.vagrant/machines/docker/virtualbox/private_key /home/vagrant/docker_key
+```
