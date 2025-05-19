@@ -74,9 +74,9 @@ ansible-playbook -i inventory.ini pause_container.yml --extra-vars "container_na
 ```
 ### Parar 3 containers necessita passar parametro do nome de cada um dos containers)
 ```
-ansible-playbook -i inventory.ini stop_containers.yml --extra-vars "container1=nginx-1 container2=nginx-2 container3=nginx-3"
+ansible-playbook -i inventory.ini stop_containers.yml --extra-vars "container_1=nginx-1 container_2=nginx-2 container_3=nginx-3"
 ```
 ### Remover todos os containers
 ```
-ansible-playbook -i inventory.ini remove_all_containers.yml"
+ansible-playbook -i inventory.ini remove_all_containers.yml
 ```
